@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Switch from '@mui/material/Switch';
@@ -5,14 +7,26 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 
+
 function FormSignUp() {
-    return <form>
+    const [name, setName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [prom, setProm] = useState(true);
+    const [nove, setNove] = useState(false);
+
+    return <form onSubmit={(e) => {
+        e.preventDefault()
+        console.log({name, lastName, email, prom, nove})
+    }}>
         <TextField
             id='name'
             label='Nombre'
             variant='outlined'
             margin='normal'
             fullWidth
+            value={name}
+            onChange={(e) => setName(e.target.value)}
         />
         <TextField
             id='lastname'
@@ -20,6 +34,8 @@ function FormSignUp() {
             variant='outlined'
             margin='normal'
             fullWidth
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
         />
         <TextField
             id='email'
@@ -28,18 +44,26 @@ function FormSignUp() {
             type='email'
             margin='normal'
             fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
         />
         <FormGroup>
             <FormControlLabel
                 control={<Switch
-                    defaultChecked={true}
-                />} label="Promociones" />
+                    checked={prom}
+                />} label="Promociones"
+                onChange={(e) => setProm(e.target.checked)}
+            />
             <FormControlLabel
                 control={<Switch
-                    defaultChecked={true}
-                />} label="Novedades" />
+                    checked={nove}
+                />} label="Novedades"
+                onChange={(e) => setNove(e.target.checked)
+                }
+                
+            />
         </FormGroup>
-        <Button variant='contained' type="submit">Registrarse</Button>
+        <Button variant='contained' type='submit'>Registrarse</Button>
 
 
     </form>
