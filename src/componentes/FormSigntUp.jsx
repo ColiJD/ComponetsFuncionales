@@ -8,7 +8,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 
-function FormSignUp() {
+function FormSignUp(props) {
+    const { HandleSubmit } = props;
     const [name, setName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -17,7 +18,13 @@ function FormSignUp() {
 
     return <form onSubmit={(e) => {
         e.preventDefault()
-        console.log({name, lastName, email, prom, nove})
+        HandleSubmit({
+            name,
+            lastName,
+            email,
+            prom,
+            nove
+        })
     }}>
         <TextField
             id='name'
@@ -60,7 +67,7 @@ function FormSignUp() {
                 />} label="Novedades"
                 onChange={(e) => setNove(e.target.checked)
                 }
-                
+
             />
         </FormGroup>
         <Button variant='contained' type='submit'>Registrarse</Button>
