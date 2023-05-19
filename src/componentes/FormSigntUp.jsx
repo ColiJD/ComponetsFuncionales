@@ -15,6 +15,20 @@ function FormSignUp(props) {
     const [email, setEmail] = useState("");
     const [prom, setProm] = useState(true);
     const [nove, setNove] = useState(false);
+    const [errors, setErrors] = useState({
+        name: {
+            error: false,
+            message: "Tienen que ser al menos tres caracteres"
+        },
+    });
+
+    function validarNombre(Nombre) {
+        if (Nombre.length >= 3) {
+            return { name: { error: false, message: "" } }
+        } else {
+            return { name: { error: true, message: "Tienen que ser al menos tres caracteres" } }
+        }
+    }
 
     return <form onSubmit={(e) => {
         e.preventDefault()
@@ -34,6 +48,9 @@ function FormSignUp(props) {
             fullWidth
             value={name}
             onChange={(e) => setName(e.target.value)}
+            error={errors.name.error}
+            helperText={errors.name.error ? errors.name.message : ""}
+            onBlur={(e) => setErrors(validarNombre(e.target.value))}
         />
         <TextField
             id='lastname'
